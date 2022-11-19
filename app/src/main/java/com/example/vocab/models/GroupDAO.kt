@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface GroupDAO {
@@ -14,6 +15,12 @@ interface GroupDAO {
     @Delete
     suspend fun delete(group: Group)
 
-    @Query("Select * from [group]")
+    @Update
+    suspend fun update(group: Group)
+
+    @Query("Select * from groups")
     fun getGroup() : LiveData<List<Group>>
+
+    @Query("UPDATE groups SET listName = :newName where listName = :oldName")
+    suspend fun update(oldName: String, newName: String)
 }

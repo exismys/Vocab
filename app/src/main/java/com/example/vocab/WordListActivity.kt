@@ -13,7 +13,7 @@ class WordListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_word_list)
 
         rvWordList = findViewById(R.id.rv_wordList)
-        adapter = WordListAdapter(listOf("One", "Two", "Three", "Four"))
+        adapter = WordListAdapter(intent.getStringArrayListExtra("wordlist")!!)
         rvWordList.adapter = adapter
         rvWordList.layoutManager = LinearLayoutManager(this)
     }

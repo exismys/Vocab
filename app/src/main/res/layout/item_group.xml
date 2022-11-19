@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
+    android:clickable="true"
     app:cardCornerRadius="5dp"
     app:cardElevation="4dp">
 
@@ -15,10 +16,10 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/tv_listName"
+            android:id="@+id/tv_groupName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="List Name"
+            android:text="Group Name"
             android:textSize="48sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,19 +31,19 @@
             android:layout_marginTop="24dp"
             android:text="TextView"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_listName"
-            app:layout_constraintTop_toBottomOf="@+id/tv_listName" />
+            app:layout_constraintStart_toStartOf="@+id/tv_groupName"
+            app:layout_constraintTop_toBottomOf="@+id/tv_groupName" />
 
         <ImageButton
-            android:id="@+id/ib_updateListName"
+            android:id="@+id/ib_updateGroupName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_listName"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_groupName"
             app:layout_constraintEnd_toStartOf="@+id/ib_deleteListName"
             app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toEndOf="@+id/tv_listName"
-            app:layout_constraintTop_toTopOf="@+id/tv_listName"
+            app:layout_constraintStart_toEndOf="@+id/tv_groupName"
+            app:layout_constraintTop_toTopOf="@+id/tv_groupName"
             app:srcCompat="@drawable/ic_baseline_update_24"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
@@ -51,9 +52,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toBottomOf="@+id/ib_updateListName"
+            app:layout_constraintBottom_toBottomOf="@+id/ib_updateGroupName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ib_updateListName"
+            app:layout_constraintTop_toTopOf="@+id/ib_updateGroupName"
             app:srcCompat="@drawable/ic_baseline_delete_24"
             tools:ignore="SpeakableTextPresentCheck" />
 
