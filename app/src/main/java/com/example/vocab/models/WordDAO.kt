@@ -15,5 +15,5 @@ interface WordDAO {
     suspend fun delete(word: Word)
 
     @Query("Select * from word")
-    suspend fun getWord(): LiveData<List<Word>>
+    fun getWord(): LiveData<List<Word>>
 }
