@@ -1,6 +1,8 @@
 package com.example.vocab
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -33,7 +35,7 @@ class GroupActivity : AppCompatActivity() {
         database = Room.databaseBuilder(applicationContext, VocabDatabase::class.java, "VocabDB").build()
 
         fabPlayAll = findViewById(R.id.fab_play)
-        fabAddGroup = findViewById(R.id.fab_addGroup)
+        fabAddGroup = findViewById(R.id.fab_addWord)
         rvListName = findViewById(R.id.rv_wordList)
         list = mutableListOf(
             Group("Book 1", arrayListOf("")),
@@ -58,6 +60,7 @@ class GroupActivity : AppCompatActivity() {
 
         val dialog = AlertDialog.Builder(this).create()
         val view = LayoutInflater.from(this).inflate(R.layout.add_group_dialog, null, false)
+//        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setView(view)
 
         val ivCancel = view.findViewById<ImageView>(R.id.iv_groupDialogCancel)

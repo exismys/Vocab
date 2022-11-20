@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_addGroup"
+        android:id="@+id/fab_addWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
@@ -39,9 +39,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/fab_addGroup"
-        app:layout_constraintEnd_toEndOf="@+id/fab_addGroup"
-        app:layout_constraintStart_toStartOf="@+id/fab_addGroup"
+        app:layout_constraintBottom_toTopOf="@+id/fab_addWord"
+        app:layout_constraintEnd_toEndOf="@+id/fab_addWord"
+        app:layout_constraintStart_toStartOf="@+id/fab_addWord"
         app:srcCompat="@drawable/ic_baseline_play_arrow_24"
         tools:ignore="SpeakableTextPresentCheck" />
 
