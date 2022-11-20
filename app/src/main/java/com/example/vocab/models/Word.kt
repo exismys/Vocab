@@ -7,7 +7,5 @@ import androidx.room.PrimaryKey
 data class Word(
     @PrimaryKey
     val word: String,
-    val pos: String,
-    val meaning: String,
-    val example: String
+    val wordDetailJson: String
 )

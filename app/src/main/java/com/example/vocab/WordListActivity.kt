@@ -16,6 +16,8 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.json.JSONArray
+import org.json.JSONException
 
 class WordListActivity : AppCompatActivity() {
     private lateinit var rvWordList: RecyclerView
@@ -45,12 +47,62 @@ class WordListActivity : AppCompatActivity() {
         val btnCancelWord = view.findViewById<Button>(R.id.btn_cancelWord)
         val tvTemp = view.findViewById<TextView>(R.id.tv_temp)
 
+        var word = ""
+        var pos = ""
+        var meaning = ""
+        var wordDetailJson = "["
+        var example = ""
+        var temp = ""
+
         val queue = Volley.newRequestQueue(this)
         val url = "https://api.dictionaryapi.dev/api/v2/entries/en/"
         btnFetch.setOnClickListener {
-            val word = etWord.text.toString()
+            word = etWord.text.toString()
             val stringRequest = StringRequest(Request.Method.GET, url + word, { response ->
-                tvTemp.text = "Response is: $response"
+                temp = "Word: $word\n\n"
+
+                val meanings = JSONArray(response).getJSONObject(0).getJSONArray("meanings")
+                for (i in 0 until meanings.length()) {
+                    pos = meanings.getJSONObject(i).getString("partOfSpeech")
+                    temp += "\nPart of Speech: $pos\n"
+                    wordDetailJson += "{\"pos\":\"$pos\",\"meanings\":["
+                    val definitions = meanings.getJSONObject(i).getJSONArray("definitions")
+                    for (j in 0 until definitions.length()) {
+                        meaning = definitions.getJSONObject(j).getString("definition")
+                        temp += "Meaning: $meaning\n"
+                        example = try {
+                            definitions.getJSONObject(j).getString("example")
+                        } catch (ex: JSONException) {
+                            ""
+                        }
+                        wordDetailJson += "{\"meaning\":\"$meaning\",\"example\":\"$example\"}"
+                        if (j != definitions.length() - 1) {
+                            wordDetailJson += ","
+                        }
+                        if (example.isNotEmpty()) {
+                            temp += "Example: $example\n"
+                        }
+
+                    }
+                    wordDetailJson += "]}"
+                    if (i != meanings.length() - 1) {
+                        wordDetailJson += ","
+                    }
+                }
+                wordDetailJson += "]"
+
+                var parsed = ""
+                val jsonArray1 = JSONArray(wordDetailJson)
+                for (i in 0 until jsonArray1.length()) {
+                    val pos1 = jsonArray1.getJSONObject(i).getString("pos")
+                    parsed += "Part of Speech: $pos1\n\n\n"
+                    val meanings1 = jsonArray1.getJSONObject(i).getJSONArray("meanings")
+                    for (j in 0 until meanings1.length()) {
+                        parsed += "Meaning: ${meanings1.getJSONObject(j).getString("meaning")}\nExample: ${meanings1.getJSONObject(j).getString("example")}\n\n"
+                    }
+                    parsed += "\n"
+                }
+                tvTemp.text = parsed
                 Toast.makeText(this, "haha", Toast.LENGTH_SHORT).show()
                 },
                 { tvTemp.text = "That didn't work!" })
