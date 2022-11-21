@@ -19,8 +19,17 @@ interface GroupDAO {
     suspend fun update(group: Group)
 
     @Query("Select * from groups")
-    fun getGroup() : LiveData<List<Group>>
+    fun getAllGroups() : LiveData<List<Group>>
+
+    @Query("Select * from groups where listName = :listName limit 1")
+    fun getGroup(listName: String): Group
+
+    @Query("Select * from groups where listName = :listName limit 1")
+    fun getGroupLive(listName: String): LiveData<Group>
 
     @Query("UPDATE groups SET listName = :newName where listName = :oldName")
     suspend fun update(oldName: String, newName: String)
+
+    @Query("Update groups set words = :words where listName = :listName")
+    suspend fun update(listName: String, words: MutableList<String>)
 }

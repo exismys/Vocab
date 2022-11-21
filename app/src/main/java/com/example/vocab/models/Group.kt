@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class Group(
     @PrimaryKey
     var listName: String,
-    var words: List<String>
+    var words: MutableList<String>
 )

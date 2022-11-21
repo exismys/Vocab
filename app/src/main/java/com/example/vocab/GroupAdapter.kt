@@ -22,7 +22,7 @@ class GroupAdapter(var list: MutableList<Group>) : RecyclerView.Adapter<GroupAda
 
             itemView.setOnClickListener {
                 Intent(context, WordListActivity::class.java).also {
-                    it.putStringArrayListExtra("wordlist", list[adapterPosition].words as ArrayList<String>)
+                    it.putExtra("listName", list[adapterPosition].listName)
                     context.startActivity(it)
                 }
             }

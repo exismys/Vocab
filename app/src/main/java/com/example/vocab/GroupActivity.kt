@@ -43,7 +43,7 @@ class GroupActivity : AppCompatActivity() {
         )
         adapter = GroupAdapter(list)
 
-        database.groupDAO().getGroup().observe(this) {
+        database.groupDAO().getAllGroups().observe(this) {
             list.clear()
             list.addAll(it)
             adapter.notifyDataSetChanged()

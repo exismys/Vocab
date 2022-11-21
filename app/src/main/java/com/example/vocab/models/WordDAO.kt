@@ -15,5 +15,8 @@ interface WordDAO {
     suspend fun delete(word: Word)
 
     @Query("Select * from word")
-    fun getWord(): LiveData<List<Word>>
+    fun getAllWords(): List<Word>
+
+    @Query("Select * from word where word = :word limit 1")
+    fun getWord(word: String): Word
 }
