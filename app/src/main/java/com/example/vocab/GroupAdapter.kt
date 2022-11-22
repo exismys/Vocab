@@ -2,6 +2,8 @@ package com.example.vocab
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -32,13 +34,16 @@ class GroupAdapter(var list: MutableList<Group>) : RecyclerView.Adapter<GroupAda
 
             // Setting up dialog box to update word group names
             val dialog = AlertDialog.Builder(context).create()
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             val view = LayoutInflater.from(context).inflate(R.layout.add_group_dialog, null, false)
             dialog.setView(view)
-            val ivCancel = view.findViewById<ImageView>(R.id.iv_groupDialogCancel)
+            val ivCancel = view.findViewById<ImageView>(R.id.ib_closeAddGroupDialog)
             ivCancel.setOnClickListener {
                 dialog.cancel()
             }
             val btnUpdate = view.findViewById<Button>(R.id.btn_groupDialogAdd)
+            val tvUpdate = view.findViewById<TextView>(R.id.tv_groupDialogHeading)
+            tvUpdate.text = "Update the group"
             btnUpdate.text = "Update"
             btnUpdate.setOnClickListener {
                 val name = view.findViewById<EditText>(R.id.et_groupDialogName).text.toString()
@@ -50,10 +55,10 @@ class GroupAdapter(var list: MutableList<Group>) : RecyclerView.Adapter<GroupAda
                 notifyItemChanged(adapterPosition)
             }
 
-            itemView.findViewById<ImageButton>(R.id.ib_updateGroupName).setOnClickListener {
+            itemView.findViewById<Button>(R.id.btn_updateGroupName).setOnClickListener {
                 dialog.show()
             }
-            itemView.findViewById<ImageButton>(R.id.ib_deleteListName).setOnClickListener {
+            itemView.findViewById<Button>(R.id.btn_deleteGroup).setOnClickListener {
                 GlobalScope.launch {
                     database.groupDAO().delete(list[adapterPosition])
                 }

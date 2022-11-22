@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -59,7 +60,7 @@ class GroupActivity : AppCompatActivity() {
         val view = LayoutInflater.from(this).inflate(R.layout.add_group_dialog, null, false)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setView(view)
-        val ivCancel = view.findViewById<ImageView>(R.id.iv_groupDialogCancel)
+        val ivCancel = view.findViewById<ImageButton>(R.id.ib_closeAddGroupDialog)
         ivCancel.setOnClickListener {
             dialog.cancel()
         }

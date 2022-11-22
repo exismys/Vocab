@@ -1,6 +1,8 @@
 package com.example.vocab
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +27,9 @@ class WordListAdapter(private var wordList: MutableList<String>, private var lis
             // Dialog box setup to delete a word
             val view = LayoutInflater.from(context).inflate(R.layout.delete_word_dialog, null, false)
             val dialog = AlertDialog.Builder(context).create()
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             val btnDeleteFromList = view.findViewById<Button>(R.id.btn_deleteFromList)
-            val ivCancel = view.findViewById<ImageView>(R.id.iv_cancel)
+            val ivCancel = view.findViewById<ImageView>(R.id.ib_closeDeleteWordDialog)
 
             btnDeleteFromList.setOnClickListener {
                 val word = wordList[adapterPosition]

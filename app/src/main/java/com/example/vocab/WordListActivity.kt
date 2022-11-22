@@ -1,16 +1,18 @@
 package com.example.vocab
 
+import android.app.ActionBar.LayoutParams
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -65,9 +67,11 @@ class WordListActivity : AppCompatActivity() {
         val etWord = view.findViewById<EditText>(R.id.et_word)
         val btnFetch = view.findViewById<Button>(R.id.btn_fetch)
         val btnAddWord = view.findViewById<Button>(R.id.btn_addWord)
-        val btnCancelWord = view.findViewById<Button>(R.id.btn_cancelWord)
+        val btnCancelWord = view.findViewById<ImageButton>(R.id.ib_closeAddWordDialog)
         val tvTemp = view.findViewById<TextView>(R.id.tv_temp)
+        val llFetchedOutput = view.findViewById<LinearLayout>(R.id.ll_fetchedOutput)
 
+        btnAddWord.visibility = View.INVISIBLE
         var word = ""
         var wordDetailJson = ""
 
@@ -78,20 +82,54 @@ class WordListActivity : AppCompatActivity() {
             word = etWord.text.toString()
             val stringRequest = StringRequest(Request.Method.GET, url + word, { response ->
 
-                var temp = "Word: $word\n\n"
+                val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+                params.topMargin = 10
+                val params2 = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+                params2.topMargin = 25
+                val tfMon = ResourcesCompat.getFont(this, R.font.montserrat)
+                val tfPac = ResourcesCompat.getFont(this, R.font.pacifico)
+
+                val tvWord = TextView(this)
+                tvWord.layoutParams = params
+                tvWord.textSize = 40F
+                tvWord.setTextColor(Color.argb(100, 253, 233, 233))
+                tvWord.typeface = tfMon
+                tvWord.text = "$word"
+                llFetchedOutput.addView(tvWord)
+
                 wordDetailJson = "["
 
                 val meanings = JSONArray(response).getJSONObject(0).getJSONArray("meanings")
                 for (i in 0 until meanings.length()) {
 
                     val pos = meanings.getJSONObject(i).getString("partOfSpeech")
-                    temp += "\nPart of Speech: $pos\n\n\n"
+                    val tvPos = TextView(this)
+                    if (i != 0) tvPos.layoutParams = params2
+                    tvPos.text = "$pos"
+                    tvPos.textSize = 10F
+                    tvPos.setTextColor(Color.argb(100, 253, 233, 233))
+                    tvPos.typeface = tfMon
+                    llFetchedOutput.addView(tvPos)
                     wordDetailJson += "{\"pos\":\"$pos\",\"meanings\":["
 
                     val definitions = meanings.getJSONObject(i).getJSONArray("definitions")
                     for (j in 0 until definitions.length()) {
+
                         val meaning = definitions.getJSONObject(j).getString("definition")
-                        temp += "Meaning: $meaning\n"
+                        val tvMeaningHead = TextView(this)
+                        tvMeaningHead.layoutParams = params
+                        tvMeaningHead.textSize = 16F
+                        tvMeaningHead.setTextColor(Color.argb(100, 253, 233, 233))
+                        tvMeaningHead.typeface = tfPac
+                        tvMeaningHead.text = "Meaning:"
+                        llFetchedOutput.addView(tvMeaningHead)
+                        val tvMeaning = TextView(this)
+                        tvMeaning.textSize = 16F
+                        tvMeaning.setTextColor(Color.argb(100, 253, 233, 233))
+                        tvMeaning.typeface = tfMon
+                        tvMeaning.text = meaning
+                        llFetchedOutput.addView(tvMeaning)
+
                         val example = try {
                             definitions.getJSONObject(j).getString("example")
                         } catch (ex: JSONException) {
@@ -102,19 +140,27 @@ class WordListActivity : AppCompatActivity() {
                             wordDetailJson += ","
                         }
                         if (example.isNotEmpty()) {
-                            temp += "Example: $example\n\n"
+                            val tvExampleHead = TextView(this)
+                            tvExampleHead.textSize = 16F
+                            tvExampleHead.setTextColor(Color.argb(100, 253, 233, 233))
+                            tvExampleHead.typeface = tfPac
+                            tvExampleHead.text = "Example"
+                            llFetchedOutput.addView(tvExampleHead)
+                            val tvExample = TextView(this)
+                            tvExample.textSize = 16F
+                            tvExample.setTextColor(Color.argb(100, 253, 233, 233))
+                            tvExample.typeface = tfMon
+                            tvExample.text = "$example"
+                            llFetchedOutput.addView(tvExample)
                         }
                     }
-                    temp += "\n"
                     wordDetailJson += "]}"
                     if (i != meanings.length() - 1) {
                         wordDetailJson += ","
                     }
                 }
                 wordDetailJson += "]"
-
-                tvTemp.text = temp
-                Toast.makeText(this, "$temp", Toast.LENGTH_SHORT).show()
+                btnAddWord.visibility = View.VISIBLE
                 }, {
                 tvTemp.text = "That didn't work!"
                 })

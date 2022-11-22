@@ -4,23 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="5dp"
+    android:backgroundTint="#133337"
     android:clickable="true"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="4dp">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:backgroundTint="#133337"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tv_groupName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
             android:text="Group Name"
-            android:textSize="48sp"
+            android:textColor="#FDE9E9"
+            android:textSize="40sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,56 +33,72 @@
             android:id="@+id/tv_wordPreview1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="TextView"
-            android:textSize="20sp"
+            android:fontFamily="@font/montserrat"
+            android:text="something"
+            android:textColor="#FDE9E9"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/tv_groupName"
             app:layout_constraintTop_toBottomOf="@+id/tv_groupName" />
-
-        <ImageButton
-            android:id="@+id/ib_updateGroupName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_groupName"
-            app:layout_constraintEnd_toStartOf="@+id/ib_deleteListName"
-            app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toEndOf="@+id/tv_groupName"
-            app:layout_constraintTop_toTopOf="@+id/tv_groupName"
-            app:srcCompat="@drawable/ic_baseline_update_24"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
-
-        <ImageButton
-            android:id="@+id/ib_deleteListName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            app:layout_constraintBottom_toBottomOf="@+id/ib_updateGroupName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ib_updateGroupName"
-            app:srcCompat="@drawable/ic_baseline_delete_24"
-            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/tv_wordPreview2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/montserrat"
+            android:text="something"
+            android:textColor="#FDE9E9"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_wordPreview1"
-            app:layout_constraintEnd_toStartOf="@+id/tv_wordPreview3"
             app:layout_constraintStart_toEndOf="@+id/tv_wordPreview1"
-            app:layout_constraintTop_toTopOf="@+id/tv_wordPreview1" />
+            app:layout_constraintTop_toTopOf="@+id/tv_wordPreview1"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/tv_wordPreview3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/montserrat"
+            android:text="something"
+            android:textColor="#FDE9E9"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_wordPreview2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_wordPreview2" />
+            app:layout_constraintStart_toEndOf="@+id/tv_wordPreview2"
+            app:layout_constraintTop_toTopOf="@+id/tv_wordPreview2"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/btn_updateGroupName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#DC7D10"
+            android:fontFamily="@font/pacifico"
+            android:minWidth="0dip"
+            android:minHeight="0dip"
+            android:text="Update"
+            android:textAllCaps="false"
+            android:textSize="10sp"
+            app:cornerRadius="24dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_wordPreview1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_wordPreview1" />
+
+        <Button
+            android:id="@+id/btn_deleteGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="#DC7D10"
+            android:fontFamily="@font/pacifico"
+            android:minWidth="0dip"
+            android:minHeight="0dip"
+            android:text="Delete"
+            android:textAllCaps="false"
+            android:textSize="10sp"
+            app:cornerRadius="24dp"
+            app:layout_constraintStart_toEndOf="@+id/btn_updateGroupName"
+            app:layout_constraintTop_toTopOf="@+id/btn_updateGroupName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

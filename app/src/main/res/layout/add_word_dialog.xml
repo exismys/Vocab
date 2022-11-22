@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:cardCornerRadius="32dp">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#133337"
+        android:paddingHorizontal="5dp">
 
         <EditText
             android:id="@+id/et_word"
-            android:layout_width="wrap_content"
+            android:layout_width="275dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_edittext"
             android:ems="10"
+            android:fontFamily="@font/pacifico"
             android:hint="Search Word"
             android:inputType="textPersonName"
+            android:textColor="#434343"
+            android:textColorHint="#434343"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,34 +29,37 @@
             android:id="@+id/btn_fetch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#DC7D10"
+            android:fontFamily="@font/pacifico"
             android:text="Fetch"
-            app:layout_constraintBottom_toBottomOf="@+id/et_word"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/et_word"
-            app:layout_constraintTop_toTopOf="@+id/et_word" />
+            android:textAllCaps="false"
+            app:cornerRadius="24dp"
+            app:layout_constraintStart_toStartOf="@+id/et_word"
+            app:layout_constraintTop_toBottomOf="@+id/et_word" />
 
         <ScrollView
             android:id="@+id/sv_wordDetail"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_addWord"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_word">
+            app:layout_constraintTop_toBottomOf="@+id/btn_fetch">
 
             <LinearLayout
+                android:id="@+id/ll_fetchedOutput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_temp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:textColor="#F4E4E4" />
+
             </LinearLayout>
         </ScrollView>
 
@@ -61,23 +67,24 @@
             android:id="@+id/btn_addWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#DC7D10"
+            android:fontFamily="@font/pacifico"
             android:text="Add Word"
+            android:textAllCaps="false"
+            app:cornerRadius="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/btn_cancelWord"
+        <ImageButton
+            android:id="@+id/ib_closeAddWordDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:text="Cancel"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_addWord"
+            android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/btn_addWord"
-            app:layout_constraintTop_toTopOf="@+id/btn_addWord"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_close_24" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

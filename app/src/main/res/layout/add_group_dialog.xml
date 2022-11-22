@@ -3,22 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:backgroundTint="#133337"
+    app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_groupDialogHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_groupDialogCancel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/pacifico"
+            android:text="Add a new group"
+            android:textColor="#FDE9E9"
+            android:textSize="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,11 +28,14 @@
             android:id="@+id/et_groupDialogName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_edittext"
             android:ems="10"
-            android:hint="Group Name: "
+            android:fontFamily="@font/pacifico"
+            android:hint="Group name"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/tv_groupDialogHeading"
+            android:textColorHint="#6E6D6D"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_groupDialogHeading"
             app:layout_constraintTop_toBottomOf="@+id/tv_groupDialogHeading" />
 
@@ -38,23 +43,29 @@
             android:id="@+id/btn_groupDialogAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#DC7D10"
+            android:fontFamily="@font/pacifico"
+            android:minWidth="0dip"
+            android:minHeight="0dip"
             android:text="Add"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            app:cornerRadius="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/et_groupDialogName"
             app:layout_constraintStart_toStartOf="@+id/et_groupDialogName"
             app:layout_constraintTop_toBottomOf="@+id/et_groupDialogName"
             app:layout_constraintVertical_bias="0.75" />
 
-        <ImageView
-            android:id="@+id/iv_groupDialogCancel"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:clickable="true"
+        <ImageButton
+            android:id="@+id/ib_closeAddGroupDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.937"
-            app:layout_constraintStart_toEndOf="@+id/tv_groupDialogHeading"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/cancel" />
+            app:srcCompat="@drawable/ic_baseline_close_24" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
