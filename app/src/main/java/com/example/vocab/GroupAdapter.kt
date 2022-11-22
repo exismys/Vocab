@@ -2,6 +2,7 @@ package com.example.vocab
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,30 +30,29 @@ class GroupAdapter(var list: MutableList<Group>) : RecyclerView.Adapter<GroupAda
 
             val database = Room.databaseBuilder(context, VocabDatabase::class.java, "VocabDB").build()
 
+            // Setting up dialog box to update word group names
             val dialog = AlertDialog.Builder(context).create()
             val view = LayoutInflater.from(context).inflate(R.layout.add_group_dialog, null, false)
             dialog.setView(view)
-
             val ivCancel = view.findViewById<ImageView>(R.id.iv_groupDialogCancel)
             ivCancel.setOnClickListener {
                 dialog.cancel()
             }
             val btnUpdate = view.findViewById<Button>(R.id.btn_groupDialogAdd)
             btnUpdate.text = "Update"
+            btnUpdate.setOnClickListener {
+                val name = view.findViewById<EditText>(R.id.et_groupDialogName).text.toString()
+                GlobalScope.launch {
+                    database.groupDAO().update(list[adapterPosition].listName, name)
+                }
+                dialog.cancel()
+                list[adapterPosition].listName = name
+                notifyItemChanged(adapterPosition)
+            }
 
             itemView.findViewById<ImageButton>(R.id.ib_updateGroupName).setOnClickListener {
                 dialog.show()
-                btnUpdate.setOnClickListener {
-                    val name = view.findViewById<EditText>(R.id.et_groupDialogName).text.toString()
-                    GlobalScope.launch {
-                        database.groupDAO().update(list[adapterPosition].listName, name)
-                    }
-                    dialog.cancel()
-                    list[adapterPosition].listName = name
-                    notifyItemChanged(adapterPosition)
-                }
             }
-
             itemView.findViewById<ImageButton>(R.id.ib_deleteListName).setOnClickListener {
                 GlobalScope.launch {
                     database.groupDAO().delete(list[adapterPosition])
@@ -79,8 +79,9 @@ class GroupAdapter(var list: MutableList<Group>) : RecyclerView.Adapter<GroupAda
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val group = list[position]
         holder.tvGroupName.text = group.listName
-        for ((index, word) in group.words.withIndex()) {
-            holder.wordPreview[index].text = word
+        val words = group.words
+        for (i in 1 until words.size) {
+            holder.wordPreview[i - 1].text = words[i]
         }
     }
 

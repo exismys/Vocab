@@ -38,16 +38,18 @@ class WordListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_word_list)
 
         database = Room.databaseBuilder(this, VocabDatabase::class.java, "VocabDB").allowMainThreadQueries().build()
+        var listName = intent.getStringExtra("listName")!!
         rvWordList = findViewById(R.id.rv_wordList)
         fabAddWord = findViewById(R.id.fab_addWord)
         fabPlay = findViewById(R.id.fab_play)
         wordList = ArrayList()
-        adapter = WordListAdapter(wordList)
+
+        adapter = WordListAdapter(wordList, listName)
 
         rvWordList.layoutManager = LinearLayoutManager(this)
         rvWordList.adapter = adapter
 
-        var listName = intent.getStringExtra("listName")!!
+
         database.groupDAO().getGroupLive(listName).observe(this) {
             wordList.clear()
             wordList.addAll(it.words)
@@ -123,10 +125,11 @@ class WordListActivity : AppCompatActivity() {
         btnAddWord.setOnClickListener { _ ->
             var dbWord = database.wordDAO().getWord(word)
             var groupWords = database.groupDAO().getGroup(listName).words
-
             if (dbWord == null) {
+                wordList.add(word)
                 GlobalScope.launch {
                     database.wordDAO().insert(Word(word, wordDetailJson))
+                    database.groupDAO().update(listName, wordList)
                 }
                 Toast.makeText(this, "$word added to the database and list $listName", Toast.LENGTH_LONG).show()
             } else if (!groupWords.contains(word)) {

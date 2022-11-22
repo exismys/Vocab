@@ -33,24 +33,20 @@ class GroupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_group)
 
         database = Room.databaseBuilder(applicationContext, VocabDatabase::class.java, "VocabDB").build()
-
         fabPlayAll = findViewById(R.id.fab_play)
         fabAddGroup = findViewById(R.id.fab_addWord)
         rvListName = findViewById(R.id.rv_wordList)
-        list = mutableListOf(
-            Group("Book 1", arrayListOf("")),
-            Group("Book 2", arrayListOf(""))
-        )
+        list = ArrayList()
         adapter = GroupAdapter(list)
+        rvListName.layoutManager = LinearLayoutManager(this)
+        rvListName.adapter = adapter
 
+        // Getting all the groups to show on page from database
         database.groupDAO().getAllGroups().observe(this) {
             list.clear()
             list.addAll(it)
             adapter.notifyDataSetChanged()
         }
-
-        rvListName.adapter = adapter
-        rvListName.layoutManager = LinearLayoutManager(this)
 
         fabPlayAll.setOnClickListener {
             Intent(this, MainActivity::class.java).also {
@@ -58,21 +54,20 @@ class GroupActivity : AppCompatActivity() {
             }
         }
 
+        // Creating dialog box to add word groups
         val dialog = AlertDialog.Builder(this).create()
         val view = LayoutInflater.from(this).inflate(R.layout.add_group_dialog, null, false)
-//        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setView(view)
-
         val ivCancel = view.findViewById<ImageView>(R.id.iv_groupDialogCancel)
         ivCancel.setOnClickListener {
             dialog.cancel()
         }
-
         val btnAdd = view.findViewById<Button>(R.id.btn_groupDialogAdd)
         btnAdd.setOnClickListener {
             val name = view.findViewById<EditText>(R.id.et_groupDialogName).text.toString()
             GlobalScope.launch {
-                database.groupDAO().insert(Group(name, arrayListOf("Dummy 1", "Dummy 2")))
+                database.groupDAO().insert(Group(name, ArrayList()))
             }
             dialog.cancel()
             Toast.makeText(this, "Added $name", Toast.LENGTH_SHORT).show()
