@@ -80,6 +80,7 @@ class WordListActivity : AppCompatActivity() {
 
         btnFetch.setOnClickListener {
             word = etWord.text.toString()
+            llFetchedOutput.removeAllViews()
             val stringRequest = StringRequest(Request.Method.GET, url + word, { response ->
 
                 val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
